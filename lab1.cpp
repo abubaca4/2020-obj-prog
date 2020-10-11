@@ -120,6 +120,9 @@ int main()
     cout << Money(20, 50) - Money(11, 50) << endl;
     cout << Money(20, 50) * 3 << endl;
     cout << Money(20, 50) / 4 << endl;
+    cout << bool(Money(20, 50) > Money(11, 50)) << endl;
+    cout << bool(Money(20, 50) > Money(20, 51)) << endl;
+    cout << bool(Money(20, 50) == Money(20, 50)) << endl;
     Person test("Jon", "Smith");
     cout << test << endl;
     cout << test.get_money() << endl;
