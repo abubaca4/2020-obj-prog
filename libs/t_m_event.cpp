@@ -13,3 +13,12 @@ bool t_m_event::check(const Time_t &taget) const
     bool is_valide_year = this->condition.year == -1 || this->condition.year == taget.year;
     return is_valide_minutes && is_valide_hour && is_valide_day && is_valide_month && is_valide_year;
 }
+
+spending_event::spending_event(const Money &action_sum, const Time_t &init = Time_t()) : t_m_event(init), action_m(action_sum)
+{
+}
+
+bool spending_event::action(Money &taget) const
+{
+    taget = taget - action_m;
+}
