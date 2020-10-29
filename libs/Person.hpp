@@ -4,6 +4,7 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <memory>
 #include "Money.hpp"
 #include "t_m_event.hpp"
 #include "Time_t.hpp"
@@ -11,7 +12,7 @@
 class Person
 {
     std::string name, last_name;
-    std::vector<t_m_event> events;
+    std::vector<std::shared_ptr<t_m_event>> events;
     Money pouch;
 
 public:
@@ -24,7 +25,7 @@ public:
     const Money &get_money() const { return pouch; }
     void decrease_money(const Money &g) { pouch = pouch - g; }
     void add_money(const Money &g) { pouch = pouch + g; }
-    void add_event(const t_m_event &new_event);
+    void add_event(t_m_event new_event);
     void execute_events(const Time_t &current_time);
 };
 
