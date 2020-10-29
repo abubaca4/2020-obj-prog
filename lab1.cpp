@@ -1,7 +1,6 @@
 #include <iostream>
-#include <cmath>
-#include <string>
 
+#include "libs/Money.hpp"
 #include "libs/Person.hpp"
 
 using namespace std;
