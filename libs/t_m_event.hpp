@@ -9,7 +9,8 @@ private:
     Time_t condition;
 
 public:
-    t_m_event(Time_t init = Time_t());
+    t_m_event(const Time_t &init = Time_t());
+    bool check(const Time_t &taget) const;
 };
 
 #endif
