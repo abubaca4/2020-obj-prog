@@ -1,4 +1,4 @@
-#include "Person.h"
+#include "Person.hpp"
 
 std::ostream &operator<<(std::ostream &os, const Person &t)
 {

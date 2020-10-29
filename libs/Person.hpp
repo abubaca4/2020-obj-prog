@@ -2,7 +2,7 @@
 #define PERSON_H
 
 #include <string>
-#include "Money.h"
+#include "Money.hpp"
 
 class Person
 {

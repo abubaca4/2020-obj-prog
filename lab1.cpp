@@ -2,7 +2,7 @@
 #include <cmath>
 #include <string>
 
-#include "libs/Person.h"
+#include "libs/Person.hpp"
 
 using namespace std;
 

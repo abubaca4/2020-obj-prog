@@ -1,4 +1,4 @@
-#include "Money.h"
+#include "Money.hpp"
 
 std::ostream &operator<<(std::ostream &os, const Money &t)
 {
