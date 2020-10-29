@@ -1,3 +1,6 @@
+#ifndef TIME_T_H
+#define TIME_T_H
+
 struct Time_t
 {
     int minutes; //-1 any
@@ -9,5 +12,7 @@ struct Time_t
            int hour = -1,
            int day = -1,
            int month = -1,
-           int year = -1) : minutes(minutes), hour(hour), day(day), month(month), year(year) {}
+           int year = -1);
 };
+
+#endif
