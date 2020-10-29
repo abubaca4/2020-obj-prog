@@ -18,7 +18,16 @@ spending_event::spending_event(const Money &action_sum, const Time_t &init = Tim
 {
 }
 
-bool spending_event::action(Money &taget) const
+void spending_event::action(Money &taget) const
 {
     taget = taget - action_m;
+}
+
+refill_event::refill_event(const Money &action_sum, const Time_t &init = Time_t()) : t_m_event(init), action_m(action_sum)
+{
+}
+
+void refill_event::action(Money &taget) const
+{
+    taget = taget + action_m;
 }
