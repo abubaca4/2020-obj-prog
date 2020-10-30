@@ -22,7 +22,7 @@ private:
 
 public:
     spending_event(const Money &action_sum, const Time_t &init);
-    void action(Money &taget) const;
+    void action(Money &taget) const override;
 };
 
 class refill_event : public t_m_event
@@ -32,7 +32,7 @@ private:
 
 public:
     refill_event(const Money &action_sum, const Time_t &init);
-    void action(Money &taget) const;
+    void action(Money &taget) const override;
 };
 
 #endif
