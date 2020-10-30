@@ -4,18 +4,18 @@
 #include "Time_t.hpp"
 #include "Money.hpp"
 
-class t_m_event
+class time_money_event
 {
 private:
     Time_t condition;
 
 public:
-    t_m_event(const Time_t &init);
+    time_money_event(const Time_t &init);
     bool check(const Time_t &taget) const;
     virtual void action(Money &taget) const = 0;
 };
 
-class spending_event : public t_m_event
+class spending_event : public time_money_event
 {
 private:
     Money action_m;
@@ -25,7 +25,7 @@ public:
     void action(Money &taget) const override;
 };
 
-class refill_event : public t_m_event
+class refill_event : public time_money_event
 {
 private:
     Money action_m;
