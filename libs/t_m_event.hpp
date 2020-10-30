@@ -12,7 +12,7 @@ private:
 public:
     t_m_event(const Time_t &init);
     bool check(const Time_t &taget) const;
-    virtual void action(Money &taget) = 0;
+    virtual void action(Money &taget) const = 0;
 };
 
 class spending_event : public t_m_event
