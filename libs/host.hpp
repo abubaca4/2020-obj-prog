@@ -2,13 +2,15 @@
 #define host_H
 #include <memory>
 #include <string>
+#include <vector>
 #include "Hub.hpp"
 
 class host
 {
 private:
-    std::shared_ptr<Hub> root_hub;
-    void hub_printing(std::shared_ptr<Hub> taget_hub, std::string prefix = "") const;
+    Hub root_hub;
+    void hub_printing(const Hub &taget_hub, const std::string prefix = "") const;
+    static std::vector<size_t> path_to_adress(std::string path);
 
 public:
     host();
