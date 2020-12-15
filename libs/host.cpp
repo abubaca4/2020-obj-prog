@@ -48,14 +48,15 @@ std::vector<size_t> host::path_to_adress(std::string path)
     return temp;
 }
 
-std::shared_ptr<Base_device> host::get_device(std::vector<size_t> adress) const //not working with empty address
+std::shared_ptr<Base_device> host::get_device(std::vector<size_t> adress, size_t limit) const //not working with empty address
 {
     const Hub *hub = &root_hub;
-    for (size_t i = 0; i < adress.size() - 1; i++)
+    size_t taget = limit == 0 ? adress.size() : limit;
+    for (size_t i = 0; i < taget - 1; i++)
     {
         hub = (Hub *)hub->get_device(adress[i]).get();
     }
-    return hub->get_device(adress[adress.size() - 1]);
+    return hub->get_device(adress[taget]);
 }
 
 void host::devices_list() const
@@ -107,14 +108,7 @@ bool host::switch_power(std::string path)
     }
     else
     {
-        auto copy_adress = adress;
-        auto it = copy_adress.begin();
-        for (size_t i = 0; i < copy_adress.size() - 1; i++)
-        {
-            it++;
-        }
-        copy_adress.erase(it);
-        taget_hub = (Hub *)get_device(copy_adress).get();
+        taget_hub = (Hub *)get_device(adress, adress.size() - 1).get();
     }
 
     if (taget_hub->is_device_active(adress[adress.size() - 1]))
@@ -140,25 +134,15 @@ bool host::remove_device(std::string path)
         return false;
     }
     auto adress = path_to_adress(path);
+
+    Hub *taget_hub;
     if (adress.size() == 1)
     {
-        if (adress[0] >= root_hub.get_device_list().size())
-        {
-            return false;
-        }
-        root_hub.remove_device(adress[0]);
-        return true;
+        taget_hub = &root_hub;
     }
-    Hub *taget_hub;
+    else
     {
-        auto copy_adress = adress;
-        auto it = copy_adress.begin();
-        for (size_t i = 0; i < copy_adress.size() - 1; i++)
-        {
-            it++;
-        }
-        copy_adress.erase(it);
-        taget_hub = (Hub *)get_device(copy_adress).get();
+        taget_hub = (Hub *)get_device(adress, adress.size() - 1).get();
     }
     if (adress[adress.size() - 1] >= taget_hub->get_device_list().size())
     {

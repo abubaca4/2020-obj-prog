@@ -12,7 +12,7 @@ private:
     Hub root_hub;
     void hub_printing(const Hub &taget_hub, const std::string prefix = "") const;
     static std::vector<size_t> path_to_adress(std::string path);
-    std::shared_ptr<Base_device> get_device(std::vector<size_t> adress) const;
+    std::shared_ptr<Base_device> get_device(std::vector<size_t> adress, size_t limit = 0) const;
     static const char *Device_names(d_types type);
 
 public:
