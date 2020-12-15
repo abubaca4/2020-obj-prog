@@ -1,6 +1,6 @@
 #include "Base_device.hpp"
 
-Base_device::Base_device(d_types type, double consumption = 0)
+Base_device::Base_device(d_types type, double consumption)
 {
     power = consumption;
     this->type = type;
