@@ -11,7 +11,7 @@ private:
 public:
     Base_device(d_types type, double consumption = 0);
     d_types get_type() const;
-    double get_consumption() const;
+    virtual double get_consumption() const;
     ~Base_device();
 };
 
