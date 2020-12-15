@@ -125,7 +125,7 @@ bool host::switch_power(std::string path)
     {
         if (taget_device->get_consumption() + root_hub.get_consumption() < avalible_power)
         {
-            taget_hub->switch_device(adress[0]);
+            taget_hub->switch_device(adress[adress.size() - 1]);
             return true;
         }
     }

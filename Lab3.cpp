@@ -13,5 +13,6 @@ int main()
     test.add_device("0", new Base_device(printer, 10));
     test.devices_list();
     test.switch_power("0");
+    test.switch_power("0-0");
     test.print_power();
 }
