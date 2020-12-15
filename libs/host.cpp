@@ -48,9 +48,9 @@ std::vector<size_t> host::path_to_adress(std::string path)
     return temp;
 }
 
-std::shared_ptr<Base_device> host::get_device(std::vector<size_t> adress) //not working with empty address
+std::shared_ptr<Base_device> host::get_device(std::vector<size_t> adress) const //not working with empty address
 {
-    Hub *hub = &root_hub;
+    const Hub *hub = &root_hub;
     for (size_t i = 0; i < adress.size() - 1; i++)
     {
         hub = (Hub *)hub->get_device(adress[i]).get();
@@ -61,7 +61,9 @@ std::shared_ptr<Base_device> host::get_device(std::vector<size_t> adress) //not 
 void host::devices_list() const
 {
     std::cout << "Device list" << std::endl;
-    std::cout << "path" << ' ' << "type" << std::endl;
+    std::cout << "path" << ' ' << "type"
+              << " "
+              << "is_active" << std::endl;
     hub_printing(root_hub);
 }
 
@@ -70,7 +72,7 @@ void host::hub_printing(const Hub &taget_hub, const std::string prefix) const
     auto list = taget_hub.get_device_list();
     for (size_t i = 0; i < list.size(); i++)
     {
-        std::cout << prefix << i << " " << Device_names(list[i]) << std::endl;
+        std::cout << prefix << i << " " << Device_names(list[i]) << " " << taget_hub.is_device_active(i) << std::endl;
         if (list[i] == hub)
         {
             hub_printing(*((Hub *)taget_hub.get_device(i).get()), std::to_string(i) + "-");
@@ -80,7 +82,6 @@ void host::hub_printing(const Hub &taget_hub, const std::string prefix) const
 
 void host::add_device(std::string path, Base_device *new_device)
 {
-
     if (path == "")
     {
         root_hub.connect_device(new_device);
@@ -132,7 +133,45 @@ bool host::switch_power(std::string path)
     return false;
 }
 
-void host::print_power()
+bool host::remove_device(std::string path)
+{
+    if (path == "")
+    {
+        return false;
+    }
+    auto adress = path_to_adress(path);
+    if (adress.size() == 1)
+    {
+        if (adress[0] >= root_hub.get_device_list().size())
+        {
+            return false;
+        }
+        root_hub.remove_device(adress[0]);
+        return true;
+    }
+    Hub *taget_hub;
+    {
+        auto copy_adress = adress;
+        auto it = copy_adress.begin();
+        for (size_t i = 0; i < copy_adress.size() - 1; i++)
+        {
+            it++;
+        }
+        copy_adress.erase(it);
+        taget_hub = (Hub *)get_device(copy_adress).get();
+    }
+    if (adress[adress.size() - 1] >= taget_hub->get_device_list().size())
+    {
+        return false;
+    }
+    else
+    {
+        taget_hub->remove_device(adress[adress.size() - 1]);
+        return true;
+    }
+}
+
+void host::print_power() const
 {
     std::cout << "Common power " << root_hub.get_consumption() << "/" << avalible_power << std::endl;
 }

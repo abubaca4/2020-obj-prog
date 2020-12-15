@@ -14,5 +14,13 @@ int main()
     test.devices_list();
     test.switch_power("0");
     test.switch_power("0-0");
+    test.switch_power("1");
+    test.devices_list();
     test.print_power();
+    test.switch_power("0");
+    test.print_power();
+    test.remove_device("1");
+    test.devices_list();
+    test.remove_device("0");
+    test.devices_list();
 }
