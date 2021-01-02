@@ -1,26 +1,27 @@
-#include "libs/host.hpp"
-#include "libs/Hub.hpp"
-#include "libs/Base_device.hpp"
-#include "libs/device_types.hpp"
+#include "libs/3_host.hpp"
+#include "libs/3_hub.hpp"
+#include "libs/3_base_device.hpp"
 
 int main()
 {
-    host test(100);
-    test.print_power();
-    test.devices_list();
-    test.add_device("", new Hub());
-    test.add_device("", new Base_device(mouse, 5));
-    test.add_device("0", new Base_device(printer, 10));
-    test.devices_list();
-    test.switch_power("0");
-    test.switch_power("0-0");
-    test.switch_power("1");
-    test.devices_list();
-    test.print_power();
-    test.switch_power("0");
-    test.print_power();
-    test.remove_device("1");
-    test.devices_list();
-    test.remove_device("0");
-    test.devices_list();
+    host test_host(100.0);
+    adress_type empty_adress({});
+    test_host.add_device(empty_adress, new hub());
+    test_host.devices_list();
+    test_host.add_device(empty_adress, new base_device(base_device::mouse, 5));
+    test_host.devices_list();
+    test_host.add_device({0}, new base_device(base_device::printer, 10));
+    test_host.devices_list();
+    test_host.print_power();
+    test_host.switch_power({0});
+    test_host.devices_list();
+    test_host.switch_power({0, 0});
+    test_host.devices_list();
+    test_host.print_power();
+    test_host.switch_power({1});
+    test_host.devices_list();
+    test_host.print_power();
+    test_host.switch_power({0});
+    test_host.devices_list();
+    test_host.print_power();
 }
